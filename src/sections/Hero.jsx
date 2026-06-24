@@ -1,27 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { motion } from 'framer-motion';
-import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 const Hero = () => {
-  const [init, setInit] = useState(false);
-
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
+  const particlesInit = useCallback(async engine => {
+    await loadSlim(engine);
   }, []);
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Particles Background */}
       <div className="absolute inset-0 z-0">
-        {init && (
-          <Particles
+        <Particles
             id="tsparticles"
+            init={particlesInit}
             options={{
               background: {
                 color: {
@@ -85,7 +79,6 @@ const Hero = () => {
               detectRetina: true,
             }}
           />
-        )}
       </div>
 
       {/* Background Gradients */}
