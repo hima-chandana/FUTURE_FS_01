@@ -1,84 +1,91 @@
-import { useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 const Hero = () => {
-  const particlesInit = useCallback(async engine => {
-    await loadSlim(engine);
+  const [init, setInit] = useState(false);
+
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+    });
   }, []);
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Particles Background */}
       <div className="absolute inset-0 z-0">
-        <Particles
-          id="tsparticles"
-          init={particlesInit}
-          options={{
-            background: {
-              color: {
-                value: "transparent",
+        {init && (
+          <Particles
+            id="tsparticles"
+            options={{
+              background: {
+                color: {
+                  value: "transparent",
+                },
               },
-            },
-            fpsLimit: 120,
-            interactivity: {
-              events: {
-                onHover: {
+              fpsLimit: 120,
+              interactivity: {
+                events: {
+                  onHover: {
+                    enable: true,
+                    mode: "repulse",
+                  },
+                  resize: true,
+                },
+                modes: {
+                  repulse: {
+                    distance: 100,
+                    duration: 0.4,
+                  },
+                },
+              },
+              particles: {
+                color: {
+                  value: ["#8B5CF6", "#3B82F6", "#06B6D4"],
+                },
+                links: {
+                  color: "#ffffff",
+                  distance: 150,
                   enable: true,
-                  mode: "repulse",
+                  opacity: 0.1,
+                  width: 1,
                 },
-                resize: true,
-              },
-              modes: {
-                repulse: {
-                  distance: 100,
-                  duration: 0.4,
-                },
-              },
-            },
-            particles: {
-              color: {
-                value: ["#8B5CF6", "#3B82F6", "#06B6D4"],
-              },
-              links: {
-                color: "#ffffff",
-                distance: 150,
-                enable: true,
-                opacity: 0.1,
-                width: 1,
-              },
-              move: {
-                direction: "none",
-                enable: true,
-                outModes: {
-                  default: "bounce",
-                },
-                random: false,
-                speed: 1,
-                straight: false,
-              },
-              number: {
-                density: {
+                move: {
+                  direction: "none",
                   enable: true,
-                  area: 800,
+                  outModes: {
+                    default: "bounce",
+                  },
+                  random: false,
+                  speed: 1,
+                  straight: false,
                 },
-                value: 60,
+                number: {
+                  density: {
+                    enable: true,
+                    area: 800,
+                  },
+                  value: 60,
+                },
+                opacity: {
+                  value: 0.3,
+                },
+                shape: {
+                  type: "circle",
+                },
+                size: {
+                  value: { min: 1, max: 3 },
+                },
               },
-              opacity: {
-                value: 0.3,
-              },
-              shape: {
-                type: "circle",
-              },
-              size: {
-                value: { min: 1, max: 3 },
-              },
-            },
-            detectRetina: true,
-          }}
-        />
+              detectRetina: true,
+            }}
+          />
+        )}
       </div>
 
       {/* Background Gradients */}
