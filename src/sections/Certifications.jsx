@@ -45,7 +45,7 @@ const Certifications = () => {
           >
             <div className="relative h-48 md:h-56 overflow-hidden bg-primary/50">
               <img 
-                src={cert.image} 
+                src={`${import.meta.env.BASE_URL}${cert.image.startsWith('/') ? cert.image.slice(1) : cert.image}`} 
                 alt={cert.name} 
                 className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
               />

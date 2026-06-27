@@ -122,7 +122,7 @@ const Hero = () => {
           <a href="#contact" className="btn-primary w-full sm:w-auto">
             Hire Me
           </a>
-          <a href="/assets/resume.pdf" download="Hima_Chandana_Resume.pdf" className="btn-outline w-full sm:w-auto bg-primary">
+          <a href={`${import.meta.env.BASE_URL}assets/resume.pdf`} download="Hima_Chandana_Resume.pdf" className="btn-outline w-full sm:w-auto bg-primary">
             Download Resume
           </a>
         </motion.div>

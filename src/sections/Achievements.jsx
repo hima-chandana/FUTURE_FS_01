@@ -86,7 +86,7 @@ const Achievements = () => {
           >
             <div className="w-full md:w-2/5 h-48 md:h-auto overflow-hidden">
               <img 
-                src={ach.image} 
+                src={`${import.meta.env.BASE_URL}${ach.image.startsWith('/') ? ach.image.slice(1) : ach.image}`} 
                 alt={ach.title} 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" 
               />
